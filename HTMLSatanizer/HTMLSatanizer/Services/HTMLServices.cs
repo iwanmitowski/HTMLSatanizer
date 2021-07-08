@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -12,7 +13,6 @@ namespace HTMLSatanizer.Services
 {
     public class HTMLServices : IHTMLServices
     {
-        private const string httpConstant = "http://";
         private const string httpsConstant = "https://";
         private readonly HttpClient client;
 
@@ -23,10 +23,18 @@ namespace HTMLSatanizer.Services
 
         public async Task<string> GetHTMLFromGivenPage(string url)
         {
-            url = url.StartsWith(httpsConstant) == false ? $"{httpConstant}{url}" : url;
+            url = url.StartsWith(httpsConstant) == false ? $"{httpsConstant}{url}" : url;
 
+            if (!this.client.GetAsync(url).IsCompleted)
+            {
+                return null;
+            }
+            
             HttpResponseMessage response = await this.client.GetAsync(url);
-            var html = await response.Content.ReadAsStringAsync();
+
+            var responseAsBytes = await response.Content.ReadAsByteArrayAsync();
+
+            var html = Encoding.UTF8.GetString(responseAsBytes, 0, responseAsBytes.Length);
 
             return html;
         }
