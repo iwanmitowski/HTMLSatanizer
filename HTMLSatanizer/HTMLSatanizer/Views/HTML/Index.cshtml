@@ -1,0 +1,30 @@
+﻿@model HTMLSatanizer.ViewModels.SiteInputModel
+@{
+    ViewData["Title"] = "HTML From URL";
+}
+
+<div class="text-center">
+    <h1 class="display-4">HTML Satanizer</h1>
+    <form method="post" asp-controller="HTML" asp-action="Index">
+        <div class="form-group">
+            <label asp-for="URL" class="col-form-label"></label>
+            <input type="text" asp-for="URL" class="form-control" />
+            <span asp-validation-for="URL" class="col-form-label text-danger"></span>
+        </div>
+        <input type="submit" class="btn btn-primary" />
+    </form>
+
+    @{
+        if (Context.Request.Method == "POST")
+        {
+            <div>
+                <form method="get" asp-controller="HTML" asp-action="Index">
+
+                    <textarea asp-for="SatanizedHTML" class="form-control"></textarea>
+
+                </form>
+            </div>
+        }
+    }
+</div>
+

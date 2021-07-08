@@ -8,5 +8,6 @@ namespace HTMLSatanizer.Services.Contracts
     public interface IHTMLServices
     {
         string SatanizeHTML(string html);
+        Task<string> GetHTMLFromGivenPage(string url);
     }
 }
