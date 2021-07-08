@@ -1,4 +1,5 @@
 ﻿using HTMLSatanizer.Models;
+using HTMLSatanizer.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,7 +16,7 @@ namespace HTMLSatanizer.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
-            _logger = logger;
+            this._logger = logger;
         }
 
         public IActionResult Index()

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HTMLSatanizer.Services.Contracts
 {
-    interface IHTMLServices
+    public interface IHTMLServices
     {
         string SatanizeHTML(string html);
     }
