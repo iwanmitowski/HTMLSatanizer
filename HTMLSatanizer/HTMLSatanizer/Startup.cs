@@ -1,4 +1,6 @@
 using HTMLSatanizer.Data;
+using HTMLSatanizer.Services;
+using HTMLSatanizer.Services.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +29,7 @@ namespace HTMLSatanizer
         {
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("HTMLSatanizer")));
+            services.AddTransient<IHTMLServices, HTMLServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
