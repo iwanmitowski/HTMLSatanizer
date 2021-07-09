@@ -1,0 +1,13 @@
+﻿@model int
+
+@{
+    ViewData["Title"] = $"Error: {Model}";
+}
+
+@if (Model == 404)
+{
+    <h2>Im pretending to be an image</h2>
+    //TODO: 404 Image
+}
+
+<h1>@Model</h1>

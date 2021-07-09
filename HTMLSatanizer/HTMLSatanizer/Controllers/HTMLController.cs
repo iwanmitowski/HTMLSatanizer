@@ -1,5 +1,4 @@
-﻿using HTMLSatanizer.Services;
-using HTMLSatanizer.Services.Contracts;
+﻿using HTMLSatanizer.Services.Contracts;
 using HTMLSatanizer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -29,7 +28,7 @@ namespace HTMLSatanizer.Controllers
         {
             model.HTML = await this.htmlServices.GetHTMLFromGivenPage(model.URL);
             
-            if (model.HTML==null)
+            if (model.HTML == null)
             {
                 return this.Content("ГРЕШКА");
             }
