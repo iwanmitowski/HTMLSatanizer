@@ -17,13 +17,13 @@ namespace HTMLSatanizer.Controllers
             this.htmlServices = htmlServices;
         }
 
-        public IActionResult Index()
+        public IActionResult Url()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(SiteInputModel model)
+        public async Task<IActionResult> Url(SiteInputModel model)
         {
             model.HTML = await this.htmlServices.GetHTMLFromGivenPage(model.URL);
             

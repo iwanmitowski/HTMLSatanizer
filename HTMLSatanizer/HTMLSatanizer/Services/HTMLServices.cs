@@ -14,6 +14,7 @@ namespace HTMLSatanizer.Services
     public class HTMLServices : IHTMLServices
     {
         private const string httpsConstant = "https://";
+        private const string errorMessage = "Try something else!";
         private readonly HttpClient client;
 
         public HTMLServices(HttpClient client)
@@ -24,17 +25,20 @@ namespace HTMLSatanizer.Services
         public async Task<string> GetHTMLFromGivenPage(string url)
         {
             url = url.StartsWith(httpsConstant) == false ? $"{httpsConstant}{url}" : url;
+            string html;
 
-            if (!this.client.GetAsync(url).IsCompleted)
+            try
             {
-                return null;
+                HttpResponseMessage response = await this.client.GetAsync(url);
+
+                var responseAsBytes = await response.Content.ReadAsByteArrayAsync();
+
+                html = Encoding.UTF8.GetString(responseAsBytes, 0, responseAsBytes.Length);
             }
-            
-            HttpResponseMessage response = await this.client.GetAsync(url);
-
-            var responseAsBytes = await response.Content.ReadAsByteArrayAsync();
-
-            var html = Encoding.UTF8.GetString(responseAsBytes, 0, responseAsBytes.Length);
+            catch (Exception)
+            {
+                return errorMessage;
+            }                        
 
             return html;
         }

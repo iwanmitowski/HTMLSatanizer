@@ -8,8 +8,8 @@ namespace HTMLSatanizer.ViewModels
 {
     public class SiteInputModel
     {
-        [RegularExpression(@"[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)")]
-        //[RegularExpression(@"^[(ht|f)tp(s?)\:\/\/]?[0-9a-zA-Z]([-.\w]*[a-яA-Я0-9])*(:(0-9)*)*(\/?)([a-яA-Я0-9\-\.\?\,\'\/\\\+&%\$#_]*)?$")]
+        [RegularExpression(@"^(?:(?:https?|ftp)://)?[-a-zA-Z0-9@:\%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:\%_\+.~#?&//=]*)$",
+            ErrorMessageResourceName = "Invalid URL! Try something else!")]
         public string URL { get; set; }
 
         public string HTML { get; set; }

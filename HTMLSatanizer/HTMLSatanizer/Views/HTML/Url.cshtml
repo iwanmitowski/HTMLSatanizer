@@ -5,7 +5,7 @@
 
 <div class="text-center">
     <h1 class="display-4">HTML Satanizer</h1>
-    <form method="post" asp-controller="HTML" asp-action="Index">
+    <form method="post" asp-controller="HTML" asp-action="Url">
         <div class="form-group">
             <label asp-for="URL" class="col-form-label"></label>
             <input type="text" asp-for="URL" class="form-control" />
@@ -18,9 +18,9 @@
         if (Context.Request.Method == "POST")
         {
             <div>
-                <form method="get" asp-controller="HTML" asp-action="Index">
+                <form method="get" asp-controller="HTML" asp-action="Url">
 
-                    <textarea asp-for="SatanizedHTML" class="form-control"></textarea>
+                    <textarea asp-for="SatanizedHTML" readonly class="form-control"></textarea>
 
                 </form>
             </div>
