@@ -4,12 +4,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">HTML Satanizer</h1>
-    <form method="post" asp-controller="HTML" asp-action="Url">
+    <h1 class="display-4">@(ViewData["Title"]+" Address")</h1>
+    <form method="post" asp-controller="HTML" asp-action="URL">
         <div class="form-group">
+
             <label asp-for="URL" class="col-form-label"></label>
             <input type="text" asp-for="URL" class="form-control" />
             <span asp-validation-for="URL" class="col-form-label text-danger"></span>
+        
         </div>
         <input type="submit" class="btn btn-primary" />
     </form>
@@ -18,7 +20,7 @@
         if (Context.Request.Method == "POST")
         {
             <div>
-                <form method="get" asp-controller="HTML" asp-action="Url">
+                <form method="get" asp-controller="HTML" asp-action="URL">
 
                     <textarea asp-for="SatanizedHTML" readonly class="form-control"></textarea>
 

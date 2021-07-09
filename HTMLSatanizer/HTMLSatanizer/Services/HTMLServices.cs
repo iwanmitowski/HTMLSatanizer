@@ -14,7 +14,7 @@ namespace HTMLSatanizer.Services
     public class HTMLServices : IHTMLServices
     {
         private const string httpsConstant = "https://";
-        private const string errorMessage = "Try something else!";
+        private const string errorMessage = "Error occured! Please try something different!";
         private readonly HttpClient client;
 
         public HTMLServices(HttpClient client)

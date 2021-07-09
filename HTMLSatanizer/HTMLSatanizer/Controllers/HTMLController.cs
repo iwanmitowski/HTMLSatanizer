@@ -10,6 +10,8 @@ namespace HTMLSatanizer.Controllers
     {
         //TODO:
         //Custom error pages!
+        //Latest added pages
+        //All the pages with pagination
         private readonly IHTMLServices htmlServices;
 
         public HTMLController(IHTMLServices htmlServices)
