@@ -1,0 +1,41 @@
+﻿@model HTMLSatanizer.ViewModels.RawHTMLInputModel
+@{
+    ViewData["Title"] = "HTML From Raw HTML";
+    string notVisualizedTags = "<col>, <embed>, <link>, <meta>,	<param>, " +
+                "<track>, <html>, <head>, <body>, <thead>, " +
+                "<th>, <tbody>, <tr>, <td>, <tfoot>, " +
+                "<colgroup>, <script>";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@(ViewData["Title"]+" Input")</h1>
+    <form method="post" asp-controller="HTML" asp-action="RawHTML">
+        <div class="form-group">
+
+            <label asp-for="HTML" class="col-form-label"></label>
+            <textarea asp-for="HTML" class="form-control"></textarea>
+            <span asp-validation-for="HTML" class="col-form-label text-danger"></span>
+        </div>
+        <input type="submit" class="btn btn-primary" />
+    </form>
+    <div>
+        <h2 text-danger>Important notes:</h2>
+        <p>@notVisualizedTags</p>
+    </div>
+    @{
+        if (Context.Request.Method == "POST")
+        {
+            <div>
+                <form method="get" asp-controller="HTML" asp-action="RawHTML">
+
+                    <textarea asp-for="SatanizedHTML" readonly class="form-control"></textarea>
+
+                </form>
+            </div>
+        }
+    }
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

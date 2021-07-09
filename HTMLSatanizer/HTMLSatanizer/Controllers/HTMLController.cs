@@ -27,12 +27,25 @@ namespace HTMLSatanizer.Controllers
         public async Task<IActionResult> URL(SiteInputModel model)
         {
             model.HTML = await this.htmlServices.GetHTMLFromGivenPage(model.URL);
-            
+
             if (model.HTML == null)
             {
                 return this.Content("ГРЕШКА");
             }
 
+            model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
+
+            return View(model);
+        }
+
+        public IActionResult RawHTML()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult RawHTML(RawHTMLInputModel model)
+        {
             model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
 
             return View(model);
