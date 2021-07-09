@@ -1,10 +1,7 @@
 ﻿@model HTMLSatanizer.ViewModels.RawHTMLInputModel
 @{
     ViewData["Title"] = "HTML From Raw HTML";
-    string notVisualizedTags = "<col>, <embed>, <link>, <meta>,	<param>, " +
-                "<track>, <html>, <head>, <body>, <thead>, " +
-                "<th>, <tbody>, <tr>, <td>, <tfoot>, " +
-                "<colgroup>, <script>";
+    string notVisualizedTags = "<applet>, <object>, <audio>, <basefont>, <bdo>, <body>, <caption>, <col>, <colgroup>, <dialog>, <frame>, <frameset>, <head>, <hgroup>, <html>, <meta>, <noframes>, <noscript>, <object>, <param>, <picture>, <script>, <source>, <style>, <svg>, <tbody>, <td>, <template>, <tfoot>	, <th>, <thead>, <title>, <track>, <video>";
 }
 
 <div class="text-center">
@@ -19,7 +16,7 @@
         <input type="submit" class="btn btn-primary" />
     </form>
     <div>
-        <h2 text-danger>Important notes:</h2>
+        <h2 class="text-danger">Important notes: The following tags will be displayed as blank space</h2>
         <p>@notVisualizedTags</p>
     </div>
     @{

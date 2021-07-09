@@ -11,6 +11,7 @@ namespace HTMLSatanizer.Controllers
         //Custom error pages!
         //Latest added pages
         //All the pages with pagination
+        //AJAX For the submiting
         private readonly IHTMLServices htmlServices;
 
         public HTMLController(IHTMLServices htmlServices)
