@@ -6,7 +6,7 @@
     <title>@ViewData["Title"]</title>
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -40,8 +40,8 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - HTMLSatanizer - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container text-center">
+            &copy; @DateTime.UtcNow.Year - HTMLSatanizer - <a href="https://github.com/iwanmitowski/">Iwan Mitowski</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
