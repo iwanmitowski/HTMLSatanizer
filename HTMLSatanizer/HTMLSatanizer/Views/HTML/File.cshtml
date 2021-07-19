@@ -1,0 +1,34 @@
+﻿@model HTMLSatanizer.ViewModels.FileInputModel
+@{
+    ViewData["Title"] = "HTML From File";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@(ViewData["Title"]+" Input")</h1>
+    <form method="post" asp-controller="HTML" asp-action="File" enctype="multipart/form-data">
+        <div class="form-group">
+
+            <label asp-for="File" class="col-form-label"></label>
+            <input asp-for="File" id="text-area-input" class="form-control">
+            <span asp-validation-for="File" class="col-form-label text-danger"></span>
+        </div>
+        <input type="submit" class="btn btn-primary" />
+    </form>
+
+    @{
+        if (Context.Request.Method == "POST")
+        {
+            <div>
+                <form method="get" asp-controller="HTML" asp-action="RawHTML">
+
+                    <textarea asp-for="SatanizedHTML" readonly class="form-control"></textarea>
+
+                </form>
+            </div>
+        }
+    }
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

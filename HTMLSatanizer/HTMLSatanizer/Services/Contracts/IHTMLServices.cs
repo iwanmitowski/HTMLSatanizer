@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,5 +10,7 @@ namespace HTMLSatanizer.Services.Contracts
     {
         string SatanizeHTML(string html);
         Task<string> GetHTMLFromGivenPage(string url);
+        public bool IsValidFileFormat(IFormFile file);
+        public Task<string> ReadTextFromFile(IFormFile file);
     }
 }

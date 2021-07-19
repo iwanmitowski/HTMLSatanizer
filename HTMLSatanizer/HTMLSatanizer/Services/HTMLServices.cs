@@ -1,7 +1,9 @@
 ﻿using Ganss.XSS;
 using HTMLSatanizer.Services.Contracts;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,12 +16,16 @@ namespace HTMLSatanizer.Services
     public class HTMLServices : IHTMLServices
     {
         private const string httpsConstant = "https://";
-        private const string errorMessage = "Error occured! Please try something different! Ensure that the site is using HTTPS";
+        private const string errorMessageGlobal = "Error occured, try again later!";
+        private const string errorMessageHTTPS = "Error occured! Please try something different! Ensure that the site is using HTTPS!";
+        private const string errorMessageMimeType = "Unsupported file extension.";
         private readonly HttpClient client;
+        private readonly IMimeTypeServices mimeTypeServices;
 
-        public HTMLServices(HttpClient client)
+        public HTMLServices(HttpClient client, IMimeTypeServices mimeTypeServices)
         {
             this.client = client;
+            this.mimeTypeServices = mimeTypeServices;
         }
 
         public async Task<string> GetHTMLFromGivenPage(string url)
@@ -37,8 +43,8 @@ namespace HTMLSatanizer.Services
             }
             catch (Exception)
             {
-                return errorMessage;
-            }                        
+                return errorMessageHTTPS;
+            }
 
             return html;
         }
@@ -48,6 +54,45 @@ namespace HTMLSatanizer.Services
             var sanitizer = new HtmlSanitizer();
 
             return WebUtility.HtmlDecode(Regex.Replace(sanitizer.Sanitize(html).Trim(), @"<[^>]+>", "&#128520;"));
+        }
+
+        public bool IsValidFileFormat(IFormFile file)
+        {
+            var actualType = mimeTypeServices.GetContentType(file.FileName);
+
+            if (actualType.StartsWith("text"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<string> ReadTextFromFile(IFormFile file)
+        {
+            if (!IsValidFileFormat(file))
+            {
+                return errorMessageMimeType;
+            }
+
+            string html = string.Empty;
+
+            try
+            {
+                using (var reader = new StreamReader(file.OpenReadStream()))
+                {
+                    while (reader.Peek() >= 0)
+                    {
+                        html = await reader.ReadToEndAsync();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return errorMessageGlobal;
+            }
+
+            return html;
         }
     }
 }

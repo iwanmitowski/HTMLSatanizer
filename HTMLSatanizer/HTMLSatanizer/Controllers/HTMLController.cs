@@ -51,5 +51,19 @@ namespace HTMLSatanizer.Controllers
 
             return View(model);
         }
+
+        public IActionResult File()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> File(FileInputModel model)
+        {
+            model.HTML = await this.htmlServices.ReadTextFromFile(model.File);
+            model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
+
+            return View(model);
+        }
     }
 }
