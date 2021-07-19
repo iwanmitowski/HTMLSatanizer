@@ -3,32 +3,52 @@
     ViewData["Title"] = "HTML From File";
 }
 
-<div class="text-center">
-    <h1 class="display-4">@(ViewData["Title"]+" Input")</h1>
+<h1 class="display-4 text-center">@(ViewData["Title"])</h1>
+
+<div class="text-left">
     <form method="post" asp-controller="HTML" asp-action="File" enctype="multipart/form-data">
         <div class="form-group">
-
-            <label asp-for="File" class="col-form-label"></label>
-            <input asp-for="File" id="text-area-input" class="form-control">
-            <span asp-validation-for="File" class="col-form-label text-danger"></span>
+            <div asp-validation-summary="All" class="col-form-label text-danger list-unstyled"></div>
+            <label asp-for="File" for="formFile" class="col-form-label"></label>
+            <input asp-for="File" id="formFile">
         </div>
+
         <input type="submit" class="btn btn-primary" />
     </form>
-
     @{
         if (Context.Request.Method == "POST")
         {
             <div>
-                <form method="get" asp-controller="HTML" asp-action="RawHTML">
-
+                <form method="get" asp-controller="HTML" asp-action="File" onchange="checkExtension(this.value," upload");">
+                    <label class="col-form-label">@Model.FileName</label>
                     <textarea asp-for="SatanizedHTML" readonly class="form-control"></textarea>
-
                 </form>
             </div>
         }
     }
 </div>
 
+<script>
+    var hash = {
+        'xls': 1,
+        'xlsx': 1,
+    };
+
+    function check_extension(filename, submitId) {
+        var re = /\..+$/;
+        var ext = filename.match(re);
+        var submitEl = document.getElementById(submitId);
+        if (hash[ext]) {
+            submitEl.disabled = false;
+            return true;
+        } else {
+            alert("Invalid file extension, please select another file");
+            submitEl.disabled = true;
+
+            return false;
+        }
+    }
+</script>
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
 }

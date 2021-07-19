@@ -8,7 +8,6 @@
     <h1 class="display-4">@(ViewData["Title"]+" Input")</h1>
     <form method="post" asp-controller="HTML" asp-action="RawHTML">
         <div class="form-group">
-
             <label asp-for="HTML" class="col-form-label"></label>
             <textarea asp-for="HTML" id="text-area-input"  class="form-control"></textarea>
             <span asp-validation-for="HTML" class="col-form-label text-danger"></span>

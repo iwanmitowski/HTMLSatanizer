@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using HeyRed.Mime;
 
 namespace HTMLSatanizer.Services
 {
@@ -20,12 +21,10 @@ namespace HTMLSatanizer.Services
         private const string errorMessageHTTPS = "Error occured! Please try something different! Ensure that the site is using HTTPS!";
         private const string errorMessageMimeType = "Unsupported file extension.";
         private readonly HttpClient client;
-        private readonly IMimeTypeServices mimeTypeServices;
 
-        public HTMLServices(HttpClient client, IMimeTypeServices mimeTypeServices)
+        public HTMLServices(HttpClient client)
         {
             this.client = client;
-            this.mimeTypeServices = mimeTypeServices;
         }
 
         public async Task<string> GetHTMLFromGivenPage(string url)
@@ -58,7 +57,8 @@ namespace HTMLSatanizer.Services
 
         public bool IsValidFileFormat(IFormFile file)
         {
-            var actualType = mimeTypeServices.GetContentType(file.FileName);
+            
+            var actualType = MimeTypesMap.GetMimeType(file.FileName);
 
             if (actualType.StartsWith("text"))
             {

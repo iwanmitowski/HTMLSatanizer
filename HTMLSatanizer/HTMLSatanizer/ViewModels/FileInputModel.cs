@@ -11,6 +11,7 @@ namespace HTMLSatanizer.ViewModels
     {
         [Required]
         public IFormFile File { get; set; }
+        public string FileName => "Current file: " + File.FileName;
         public string HTML { get; set; }
         public string SatanizedHTML { get; set; }
     }
