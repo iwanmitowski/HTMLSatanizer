@@ -1,6 +1,9 @@
-﻿using HTMLSatanizer.Services.Contracts;
+﻿using HTMLSatanizer.Data;
+using HTMLSatanizer.Services.Contracts;
 using HTMLSatanizer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using HTMLSatanizer.Models;
 using System.Threading.Tasks;
 
 namespace HTMLSatanizer.Controllers
@@ -8,15 +11,17 @@ namespace HTMLSatanizer.Controllers
     public class HTMLController : Controller
     {
         //TODO:
-        //Custom error pages!
+        //Migrations!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //Latest added pages
         //All the pages with pagination
-        //AJAX For the submiting
+        
         private readonly IHTMLServices htmlServices;
+        private readonly ApplicationDbContext dbContext;
 
-        public HTMLController(IHTMLServices htmlServices)
+        public HTMLController(IHTMLServices htmlServices, ApplicationDbContext dbContext)
         {
             this.htmlServices = htmlServices;
+            this.dbContext = dbContext;
         }
 
         public IActionResult URL()
@@ -36,6 +41,12 @@ namespace HTMLSatanizer.Controllers
 
             model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
 
+            var site = new Site() { URL = model.URL, HTML = model.SatanizedHTML };
+
+            //Migrations!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //await dbContext.AddAsync(model);
+            //await dbContext.SaveChangesAsync();
+
             return View(model);
         }
 
@@ -48,7 +59,7 @@ namespace HTMLSatanizer.Controllers
         public IActionResult RawHTML(RawHTMLInputModel model)
         {
             model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
-
+            //Migrations!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             return View(model);
         }
 
@@ -62,7 +73,7 @@ namespace HTMLSatanizer.Controllers
         {
             model.HTML = await this.htmlServices.ReadTextFromFile(model.File);
             model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
-
+            //Migrations!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             return View(model);
         }
     }
