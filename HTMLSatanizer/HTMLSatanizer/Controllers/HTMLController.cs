@@ -63,7 +63,7 @@ namespace HTMLSatanizer.Controllers
                 await this.dataBaseServices.Add(site);
             }
 
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.SaveChangesAsync();
 
             return View(model);
         }
@@ -77,6 +77,7 @@ namespace HTMLSatanizer.Controllers
         public async Task<IActionResult> RawHTMLAsync(RawHTMLInputModel model)
         {
             model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
+
             if (!ModelState.IsValid || model.HTML == null)
             {
                 return this.Content("ГРЕШКА");
@@ -94,7 +95,7 @@ namespace HTMLSatanizer.Controllers
             };
 
             await this.dataBaseServices.Add(site);
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.SaveChangesAsync();
 
             return View(model);
         }
@@ -108,8 +109,26 @@ namespace HTMLSatanizer.Controllers
         public async Task<IActionResult> File(FileInputModel model)
         {
             model.HTML = await this.htmlServices.ReadTextFromFile(model.File);
+
+            if (!ModelState.IsValid || model.HTML == null)
+            {
+                return this.Content("ГРЕШКА");
+            }
+
             model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
-            //Migrations!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+            Site site = new Site()
+            {
+                URL = model.NameOnly,
+                HTML = model.HTML,
+                HTMLSatanized = model.SatanizedHTML,
+                CreatedOn = DateTime.UtcNow,
+                Type = "FromFile",
+            };
+
+            await this.dataBaseServices.Add(site);
+            await this.dbContext.SaveChangesAsync();
+
             return View(model);
         }
     }

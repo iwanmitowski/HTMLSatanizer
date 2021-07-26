@@ -10,6 +10,8 @@ namespace HTMLSatanizer.ViewModels
 
         public string FileName => "Current file: " + File.FileName;
 
+        public string NameOnly => File.FileName;
+
         public string HTML { get; set; }
 
         public string SatanizedHTML { get; set; }
