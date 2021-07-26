@@ -13,6 +13,6 @@ namespace HTMLSatanizer.Models
         public string HTML { get; set; }
         public string HTMLSatanized { get; set; }
         public DateTime? CreatedOn { get; set; }
-        public DateTime? DeletedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
     }
 }

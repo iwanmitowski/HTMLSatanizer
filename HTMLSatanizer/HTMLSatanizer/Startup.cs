@@ -29,6 +29,7 @@ namespace HTMLSatanizer
             });
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("HTMLSatanizer")));
             services.AddTransient<IHTMLServices, HTMLServices>();
+            services.AddTransient<IDataBaseServices, DataBaseServices>();
             services.AddTransient<HttpClient>();
         }
 
