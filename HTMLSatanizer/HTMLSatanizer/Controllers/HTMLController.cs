@@ -4,6 +4,7 @@ using HTMLSatanizer.Services.Contracts;
 using HTMLSatanizer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 
 namespace HTMLSatanizer.Controllers
@@ -55,7 +56,7 @@ namespace HTMLSatanizer.Controllers
                     URL = model.URL,
                     HTML = model.HTML,
                     HTMLSatanized = model.SatanizedHTML,
-                    CreatedOn = System.DateTime.UtcNow,
+                    CreatedOn = DateTime.UtcNow,
                     Type = "URL",
                 };
 
@@ -63,6 +64,7 @@ namespace HTMLSatanizer.Controllers
             }
 
             await dbContext.SaveChangesAsync();
+
             return View(model);
         }
 
@@ -72,10 +74,28 @@ namespace HTMLSatanizer.Controllers
         }
 
         [HttpPost]
-        public IActionResult RawHTML(RawHTMLInputModel model)
+        public async Task<IActionResult> RawHTMLAsync(RawHTMLInputModel model)
         {
             model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
-            //Migrations!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (!ModelState.IsValid || model.HTML == null)
+            {
+                return this.Content("ГРЕШКА");
+            }
+
+            model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
+
+            Site site = new Site()
+            {
+                URL = "RawHTML Input",
+                HTML = model.HTML,
+                HTMLSatanized = model.SatanizedHTML,
+                CreatedOn = DateTime.UtcNow,
+                Type = "RawHTML",
+            };
+
+            await this.dataBaseServices.Add(site);
+            await dbContext.SaveChangesAsync();
+
             return View(model);
         }
 
