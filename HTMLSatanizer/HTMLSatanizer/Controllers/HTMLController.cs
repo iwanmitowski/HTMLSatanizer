@@ -1,9 +1,9 @@
 ﻿using HTMLSatanizer.Data;
+using HTMLSatanizer.Models;
 using HTMLSatanizer.Services.Contracts;
 using HTMLSatanizer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using HTMLSatanizer.Models;
 using System.Threading.Tasks;
 
 namespace HTMLSatanizer.Controllers

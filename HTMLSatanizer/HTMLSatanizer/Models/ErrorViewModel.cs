@@ -1,5 +1,3 @@
-using System;
-
 namespace HTMLSatanizer.Models
 {
     public class ErrorViewModel

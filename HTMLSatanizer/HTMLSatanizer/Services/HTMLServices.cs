@@ -1,16 +1,14 @@
 ﻿using Ganss.XSS;
+using HeyRed.Mime;
 using HTMLSatanizer.Services.Contracts;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using HeyRed.Mime;
 
 namespace HTMLSatanizer.Services
 {

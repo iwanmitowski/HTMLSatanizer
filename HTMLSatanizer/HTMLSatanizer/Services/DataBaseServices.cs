@@ -3,8 +3,6 @@ using HTMLSatanizer.Models;
 using HTMLSatanizer.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HTMLSatanizer.Services
