@@ -5,15 +5,17 @@
 
 <h1 class="display-4 text-center">@(ViewData["Title"])</h1>
 
-<div class="text-left">
-    <form method="post" asp-controller="HTML" asp-action="File" enctype="multipart/form-data">
-        <div class="form-group">
+<div>
+    <form class="d-flex justify-content-center align-baseline" method="post" asp-controller="HTML" asp-action="File" enctype="multipart/form-data">
+        <div class="form-group mb-1">
             <div asp-validation-summary="All" class="col-form-label text-danger list-unstyled"></div>
             <label asp-for="File" for="formFile" class="col-form-label"></label>
-            <input asp-for="File" id="formFile">
+            <input asp-for="File" id="formFile mb-2">
+            <input type="submit" id="from-file-submit" class="btn btn-primary " />
+
         </div>
 
-        <input type="submit" class="btn btn-primary" />
+
     </form>
     @{
         if (Context.Request.Method == "POST")

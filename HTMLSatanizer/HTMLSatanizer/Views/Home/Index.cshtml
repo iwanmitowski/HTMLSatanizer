@@ -5,12 +5,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @ViewData["Title"]</h1>
-
+    <h1 class="display-4 mb-3">Welcome to @ViewData["Title"]</h1>
 </div>
 
 
 <section>
+    <div class="text-center">
+        <h3 class="display-4">Latest Satanized</h3>
+    </div>
     @foreach (var model in Model)
     {
         <div class="card mt-5">
@@ -25,7 +27,7 @@
         </div>
     }
 
-<div class="mb-2 mt-4">
-    <a asp-controller="HTML" asp-action="All" class="btn btn-primary">Check all entries</a>
-</div>
+    <div class="mb-2 mt-4">
+        <a asp-controller="HTML" asp-action="All" class="btn btn-primary">Check all entries</a>
+    </div>
 </section>
