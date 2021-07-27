@@ -3,6 +3,7 @@ using HTMLSatanizer.Models;
 using HTMLSatanizer.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HTMLSatanizer.Services
@@ -35,6 +36,11 @@ namespace HTMLSatanizer.Services
 
             this.dbContext.Update(site);
             entry.State = EntityState.Modified;
+        }
+
+        public IQueryable<Site> GetAll()
+        {
+            return this.dbContext.Set<Site>();
         }
     }
 }

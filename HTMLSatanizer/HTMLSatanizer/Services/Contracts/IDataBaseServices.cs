@@ -1,4 +1,5 @@
 ﻿using HTMLSatanizer.Models;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HTMLSatanizer.Services.Contracts
@@ -7,5 +8,6 @@ namespace HTMLSatanizer.Services.Contracts
     {
         void Update(Site site);
         Task Add(Site site);
+        IQueryable<Site> GetAll();
     }
 }

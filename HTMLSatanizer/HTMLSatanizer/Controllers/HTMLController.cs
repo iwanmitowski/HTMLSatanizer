@@ -123,7 +123,7 @@ namespace HTMLSatanizer.Controllers
                 HTML = model.HTML,
                 HTMLSatanized = model.SatanizedHTML,
                 CreatedOn = DateTime.UtcNow,
-                Type = "FromFile",
+                Type = "File",
             };
 
             await this.dataBaseServices.Add(site);

@@ -1,8 +1,31 @@
-﻿@{
-    ViewData["Title"] = "HTML From URL";
+﻿@using HTMLSatanizer.ViewModels;
+@model List<HTMLSiteViewModel>
+@{
+    ViewData["Title"] = "HTML Satanizer";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to HTML Satanizer</h1>
+    <h1 class="display-4">Welcome to @ViewData["Title"]</h1>
 
 </div>
+
+
+<section>
+    @foreach (var model in Model)
+    {
+        <div class="card mt-5">
+            <div class="card-header">
+                <h5 class="card-title">@(model.URL)</h5>
+                <h6>@(model.Type)</h6>
+            </div>
+            <div class="card-body">
+                <p class="card-text">@(model.ShortHTML)</p>
+                <a asp-controller="HTML" asp-action="ById" asp-route-id="@(model.Id)" class="btn btn-primary">Full Information</a>
+            </div>
+        </div>
+    }
+
+<div class="mb-2 mt-4">
+    <a asp-controller="HTML" asp-action="All" class="btn btn-primary">Check all entries</a>
+</div>
+</section>
