@@ -1,7 +1,7 @@
 ﻿@using HTMLSatanizer.ViewModels;
 @model HTMLSiteViewModel
     <p>
-        <button class="btn btn-primary collapse show" href="#satanizedHTML" type="button" data-toggle="collapse" data-target="#satanizedHTML" aria-expanded="true">
+        <button class="btn btn-primary collapse" href="#satanizedHTML" type="button" data-toggle="collapse" data-target="#satanizedHTML" aria-expanded="true">
             Satanized HTML
         </button>
         <button class="btn btn-primary" href="#HTML" type="button" data-toggle="collapse" data-target="#HTML" aria-expanded="false">
@@ -11,7 +11,7 @@
             Detailed Information
         </button>
     </p>
-    <div class="panel-collapse collapse in" id="satanizedHTML">
+    <div class="panel-collapse collapse show" id="satanizedHTML">
         <div class="card card-body">
             @Model.HTMLSatanized
         </div>
