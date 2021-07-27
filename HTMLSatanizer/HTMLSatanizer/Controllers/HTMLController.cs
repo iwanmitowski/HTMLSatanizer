@@ -12,7 +12,6 @@ namespace HTMLSatanizer.Controllers
     public class HTMLController : Controller
     {
         //TODO:
-        //Latest added pages
         //All the pages with pagination
 
         private readonly IHTMLServices htmlServices;
@@ -45,24 +44,27 @@ namespace HTMLSatanizer.Controllers
 
             Site site = await this.dbContext.Set<Site>().FirstOrDefaultAsync<Site>(x => x.URL == model.URL);
 
-            if (site != null)
+            if (!model.HTML.StartsWith("Error"))
             {
-                this.dataBaseServices.Update(site);
-            }
-            else
-            {
-                site = new Site()
+                if (site != null)
                 {
-                    URL = model.URL,
-                    HTML = model.HTML,
-                    HTMLSatanized = model.SatanizedHTML,
-                    CreatedOn = DateTime.UtcNow,
-                    Type = "URL",
-                };
+                    this.dataBaseServices.Update(site);
+                }
+                else
+                {
+                    site = new Site()
+                    {
+                        URL = model.URL,
+                        HTML = model.HTML,
+                        HTMLSatanized = model.SatanizedHTML,
+                        CreatedOn = DateTime.UtcNow,
+                        Type = "URL",
+                    };
 
-                await this.dataBaseServices.Add(site);
+                    await this.dataBaseServices.Add(site);
+                }
             }
-
+            
             await this.dbContext.SaveChangesAsync();
 
             return View(model);

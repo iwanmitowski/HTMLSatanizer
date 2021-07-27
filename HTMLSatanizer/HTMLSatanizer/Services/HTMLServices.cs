@@ -17,7 +17,7 @@ namespace HTMLSatanizer.Services
         private const string httpsConstant = "https://";
         private const string errorMessageGlobal = "Error occured, try again later!";
         private const string errorMessageHTTPS = "Error occured! Please try something different! Ensure that the site is using HTTPS!";
-        private const string errorMessageMimeType = "Unsupported file extension.";
+        private const string errorMessageMimeType = "Error Unsupported file extension.";
         private readonly HttpClient client;
 
         public HTMLServices(HttpClient client)
