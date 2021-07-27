@@ -9,5 +9,6 @@ namespace HTMLSatanizer.Services.Contracts
         void Update(Site site);
         Task Add(Site site);
         IQueryable<Site> GetAll();
+        Site GetById(int Id);
     }
 }

@@ -42,5 +42,12 @@ namespace HTMLSatanizer.Services
         {
             return this.dbContext.Set<Site>();
         }
+
+        public Site GetById(int Id)
+        {
+            var site = this.dbContext.Set<Site>().Where(x => x.Id == Id).FirstOrDefault();
+
+            return site;
+        }
     }
 }

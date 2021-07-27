@@ -131,5 +131,28 @@ namespace HTMLSatanizer.Controllers
 
             return View(model);
         }
+
+        public IActionResult ById(int Id)
+        {
+            var element = dataBaseServices.GetById(Id);
+
+            if (!ModelState.IsValid || element == null)
+            {
+                return this.NotFound();
+            }
+            
+            HTMLSiteViewModel model = new HTMLSiteViewModel()
+            {
+                Id = element.Id,
+                URL = element.URL,
+                Type = element.Type,
+                HTML = element.HTML,
+                HTMLSatanized = element.HTMLSatanized,
+                CreatedOn = element.CreatedOn,
+                ModifiedOn = element.ModifiedOn,
+            };
+
+            return View(model);
+        }
     }
 }
