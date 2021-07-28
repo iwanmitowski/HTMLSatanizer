@@ -40,12 +40,12 @@ namespace HTMLSatanizer.Controllers
                 return this.Content("ГРЕШКА");
             }
 
-            model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
-
-            Site site = await this.dbContext.Set<Site>().FirstOrDefaultAsync<Site>(x => x.URL == model.URL);
-
             if (!model.HTML.StartsWith("Error"))
             {
+                model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
+
+                Site site = await this.dbContext.Set<Site>().FirstOrDefaultAsync<Site>(x => x.URL == model.URL);
+
                 if (site != null)
                 {
                     this.dataBaseServices.Update(site);
@@ -63,9 +63,10 @@ namespace HTMLSatanizer.Controllers
 
                     await this.dataBaseServices.Add(site);
                 }
+
+                await this.dbContext.SaveChangesAsync();
             }
-            
-            await this.dbContext.SaveChangesAsync();
+
 
             return View(model);
         }
@@ -117,19 +118,22 @@ namespace HTMLSatanizer.Controllers
                 return this.Content("ГРЕШКА");
             }
 
-            model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
-
-            Site site = new Site()
+            if (!model.HTML.StartsWith("Error"))
             {
-                URL = model.NameOnly,
-                HTML = model.HTML,
-                HTMLSatanized = model.SatanizedHTML,
-                CreatedOn = DateTime.UtcNow,
-                Type = "File",
-            };
+                model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
 
-            await this.dataBaseServices.Add(site);
-            await this.dbContext.SaveChangesAsync();
+                Site site = new Site()
+                {
+                    URL = model.NameOnly,
+                    HTML = model.HTML,
+                    HTMLSatanized = model.SatanizedHTML,
+                    CreatedOn = DateTime.UtcNow,
+                    Type = "File",
+                };
+
+                await this.dataBaseServices.Add(site);
+                await this.dbContext.SaveChangesAsync();
+            }
 
             return View(model);
         }
