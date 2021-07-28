@@ -169,8 +169,9 @@ namespace HTMLSatanizer.Controllers
             var skip = (id - 1) * ItemsPerPage;
             var all = dataBaseServices.GetAll();
             var sitesCount = all.Count();
+            var pagesCount = (int)Math.Ceiling(sitesCount / (decimal)ItemsPerPage);
 
-            if (id < 0 || id > sitesCount)
+            if (id < 0 || id > pagesCount)
             {
                 return NotFound();
             }
@@ -184,7 +185,6 @@ namespace HTMLSatanizer.Controllers
 
 
 
-            var pagesCount = (int)Math.Ceiling(sitesCount / (decimal)ItemsPerPage);
 
 
             List<HTMLSiteViewModel> sites = new List<HTMLSiteViewModel>();
