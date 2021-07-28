@@ -17,7 +17,7 @@ namespace HTMLSatanizer.Controllers
 
         public IActionResult Index()
         {
-            var elements = dataBaseServices.GetAll().OrderByDescending(x => x.CreatedOn).ThenBy(x => x.ModifiedOn).Take(4);
+            var elements = dataBaseServices.GetAll().OrderByDescending(x => x.ModifiedOn).ThenByDescending(x => x.CreatedOn).Take(4);
 
             List<HTMLSiteViewModel> models = new List<HTMLSiteViewModel>();
 

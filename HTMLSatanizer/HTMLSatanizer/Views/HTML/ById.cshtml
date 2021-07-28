@@ -1,34 +1,40 @@
 ﻿@using HTMLSatanizer.ViewModels;
 @model HTMLSiteViewModel
-    <p>
-        <button class="btn btn-primary collapse show" href="#satanizedHTML" type="button" data-toggle="collapse" data-target="#satanizedHTML" aria-expanded="true">
-            Satanized HTML
-        </button>
-        <button class="btn btn-primary" href="#HTML" type="button" data-toggle="collapse" data-target="#HTML" aria-expanded="false">
-            HTML
-        </button>
-        <button class="btn btn-primary" href="#detailedInfo" type="button" data-toggle="collapse" data-target="#detailedInfo" aria-expanded="false">
-            Detailed Information
-        </button>
-    </p>
-    <div class="panel-collapse collapse show" id="satanizedHTML">
-        <div class="card card-body">
-            @Model.HTMLSatanized
-        </div>
+<p>
+    <button class="btn btn-primary collapse show" href="#satanizedHTML" type="button" data-toggle="collapse" data-target="#satanizedHTML" aria-expanded="true">
+        Satanized HTML
+    </button>
+    <button class="btn btn-primary" href="#HTML" type="button" data-toggle="collapse" data-target="#HTML" aria-expanded="false">
+        HTML
+    </button>
+    <button class="btn btn-primary" href="#detailedInfo" type="button" data-toggle="collapse" data-target="#detailedInfo" aria-expanded="false">
+        Detailed Information
+    </button>
+</p>
+<div class="panel-collapse collapse show" id="satanizedHTML">
+    <div class="card card-body">
+        @Model.HTMLSatanized
     </div>
-    <div class="collapse" id="HTML">
-        <div class="card card-body">
+</div>
+<div class="collapse" id="HTML">
+    <div class="card card-body">
 
-            @Model.HTML
-        </div>
+        @Model.HTML
     </div>
-    <div class="collapse" id="detailedInfo">
-        <div class="card card-body">
-            <article class="pt-2">
-                <p>Source: @Model.Type</p>
-                <p>Created on: @Model.CreatedOn</p>
-                <p>Modified on: @(Model.ModifiedOn==null? "Never" : Model.ModifiedOn)</p>
-            </article>
-        </div>
+</div>
+<div class="collapse" id="detailedInfo">
+    <div class="card card-body">
+        <article class="pt-2">
+            <p>Source: @Model.Type</p>
+            <p>Created on: <time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn</time></p>
+            @if (Model.ModifiedOn == null)
+            {
+                <p>Modified on: Never</p>
+            }
+            else
+            {
+                <p>Modified on: <time datetime="@Model.ModifiedOn?.ToString("O")"></time></p>
+            }
+        </article>
     </div>
-    
+</div>
