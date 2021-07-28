@@ -5,14 +5,15 @@ using HTMLSatanizer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HTMLSatanizer.Controllers
 {
     public class HTMLController : Controller
     {
-        //TODO:
-        //All the pages with pagination
+        private const int ItemsPerPage = 6;
 
         private readonly IHTMLServices htmlServices;
         private readonly ApplicationDbContext dbContext;
@@ -146,7 +147,7 @@ namespace HTMLSatanizer.Controllers
             {
                 return this.NotFound();
             }
-            
+
             HTMLSiteViewModel model = new HTMLSiteViewModel()
             {
                 Id = element.Id,
@@ -156,6 +157,60 @@ namespace HTMLSatanizer.Controllers
                 HTMLSatanized = element.HTMLSatanized,
                 CreatedOn = element.CreatedOn,
                 ModifiedOn = element.ModifiedOn,
+            };
+
+            return View(model);
+        }
+
+        public IActionResult All(int id/*, string search*/)
+        {
+            //Setting up the elements
+            id = Math.Max(1, id);
+            var skip = (id - 1) * ItemsPerPage;
+            var all = dataBaseServices.GetAll();
+            var sitesCount = all.Count();
+
+            if (id < 0 || id > sitesCount)
+            {
+                return NotFound();
+            }
+
+            var query = all
+                .OrderByDescending(x => x.ModifiedOn)
+                .ThenByDescending(x => x.CreatedOn)
+                .Skip(skip)
+                .Take(ItemsPerPage)
+                .ToList();
+
+
+
+            var pagesCount = (int)Math.Ceiling(sitesCount / (decimal)ItemsPerPage);
+
+
+            List<HTMLSiteViewModel> sites = new List<HTMLSiteViewModel>();
+            foreach (var element in query)
+            {
+                sites.Add(
+                    new HTMLSiteViewModel()
+                    {
+                        Id = element.Id,
+                        URL = element.URL,
+                        Type = element.Type,
+                        HTML = element.HTML,
+                        HTMLSatanized = element.HTMLSatanized,
+                        CreatedOn = element.CreatedOn,
+                        ModifiedOn = element.ModifiedOn,
+                    }
+                );
+            }
+
+            var model = new HTMLSiteListViewModel()
+            {
+                HTMLs = sites,
+                CurrentPage = id,
+                PagesCount = pagesCount,
+                SitesCount = sitesCount,
+                Search = null,
             };
 
             return View(model);

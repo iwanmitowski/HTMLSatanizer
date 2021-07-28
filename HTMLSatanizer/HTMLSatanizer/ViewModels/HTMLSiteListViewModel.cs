@@ -13,7 +13,7 @@ namespace HTMLSatanizer.ViewModels
 
         public int PagesCount { get; set; }
 
-        public int NewsCount { get; set; }
+        public int SitesCount { get; set; }
 
         public int PreviousPage => this.CurrentPage == 1 ? 1 : this.CurrentPage - 1;
 
