@@ -23,7 +23,7 @@ namespace HTMLSatanizer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews(options=>
+            services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
@@ -31,6 +31,16 @@ namespace HTMLSatanizer
             services.AddTransient<IHTMLServices, HTMLServices>();
             services.AddTransient<IDataBaseServices, DataBaseServices>();
             services.AddTransient<HttpClient>();
+
+            //DECLARE @count INT = 1;
+            //WHILE @count <= 100
+            //BEGIN
+            //INSERT INTO Site(URL, html, createdon, modifiedon, htmlsatanized, type) VALUES
+            //(CONCAT('test.com ', @count), 'hi', CAST(GETUTCDATE() AS DATETIME2), NULL, 'hi', 'URL')
+
+            //SET @count+= 1
+            //END;
+            //DELETE FROM Site WHERE URL LIKE'test.com%'
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
