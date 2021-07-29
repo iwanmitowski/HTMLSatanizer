@@ -1,4 +1,5 @@
 ﻿using HTMLSatanizer.Data;
+using HTMLSatanizer.EmailSender.Contracts;
 using HTMLSatanizer.Models;
 using HTMLSatanizer.Services.Contracts;
 using HTMLSatanizer.ViewModels;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace HTMLSatanizer.Controllers
@@ -18,12 +20,18 @@ namespace HTMLSatanizer.Controllers
         private readonly IHTMLServices htmlServices;
         private readonly ApplicationDbContext dbContext;
         private readonly IDataBaseServices dataBaseServices;
+        private readonly IEmailSender emailSender;
 
-        public HTMLController(IHTMLServices htmlServices, ApplicationDbContext dbContext, IDataBaseServices dataBaseServices)
+        public HTMLController(
+            IHTMLServices htmlServices,
+            ApplicationDbContext dbContext,
+            IDataBaseServices dataBaseServices,
+            IEmailSender emailSender)
         {
             this.htmlServices = htmlServices;
             this.dbContext = dbContext;
             this.dataBaseServices = dataBaseServices;
+            this.emailSender = emailSender;
         }
 
         public IActionResult URL()
@@ -139,9 +147,9 @@ namespace HTMLSatanizer.Controllers
             return View(model);
         }
 
-        public IActionResult ById(int Id)
+        public IActionResult ById(int id)
         {
-            var element = dataBaseServices.GetById(Id);
+            var element = dataBaseServices.GetById(id);
 
             if (!ModelState.IsValid || element == null)
             {
@@ -214,6 +222,36 @@ namespace HTMLSatanizer.Controllers
             };
 
             return View(model);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> SendToEmail(int id)
+        {
+            var element = dataBaseServices.GetById(id);
+
+            if (!ModelState.IsValid || element == null)
+            {
+                return this.NotFound();
+            }
+
+            string content = $"<h1>Satanized content: {element.URL}</h1>";
+
+            StringBuilder html = new StringBuilder();
+
+            html.AppendLine(content);
+            html.AppendLine($"<h3>: {element.CreatedOn}</h3>");
+            html.AppendLine(@$"<h3>: {(element.ModifiedOn == null ? "Never" : element.ModifiedOn)}</h3>");
+            html.AppendLine();
+            html.AppendLine(element.HTMLSatanized);
+
+            await emailSender.SendEmailAsync(
+                "HTMLSatanizer@satanize.com",
+                "HTMLSatanizer",
+                "menij35272@flipssl.com",
+                content,
+                html.ToString());
+
+            return View();
         }
     }
 }

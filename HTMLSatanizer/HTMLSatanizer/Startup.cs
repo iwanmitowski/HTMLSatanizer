@@ -1,4 +1,5 @@
 using HTMLSatanizer.Data;
+using HTMLSatanizer.EmailSender.Contracts;
 using HTMLSatanizer.Services;
 using HTMLSatanizer.Services.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -27,6 +28,8 @@ namespace HTMLSatanizer
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
+            
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(Configuration["SendGrid:ApiKey"]));
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("HTMLSatanizer")));
             services.AddTransient<IHTMLServices, HTMLServices>();
             services.AddTransient<IDataBaseServices, DataBaseServices>();
