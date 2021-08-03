@@ -1,5 +1,39 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+/*pallete https://coolors.co/gradient-palette/ff0000-000000?number=7 */
+:root {
+    --primary-color: #D50000;
+    /* var(--primary-color) */
+
+    --secondary-color: #AA0000;
+    /*var(--secondary-color) */
+
+    --dark-color: #800000;
+    /*var(--dark-color) */
+
+    --darker-color: #3d0c0c;
+    /*var(--dark-color) */
+
+    --darkest-color: #2B0000;
+    /*var(--darkest-color) */
+}
+
+h1, h2, h3, h4{
+    color: #aaa4a4;
+}
+
+border {
+    color: #aaa4a4;
+}
+
+label {
+    color: #aaa4a4;
+}
+
+input {
+    color: #585757;
+}
+
 
 a.navbar-brand {
     white-space: normal;
@@ -7,23 +41,98 @@ a.navbar-brand {
     word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
 a {
-    color: #0366d6;
+    color: var(--secondary-color);
+}
+
+    a:hover {
+        color: var(--primary-color);
+        transition: 0.2s ease-out;
+    }
+
+.btn{
+    padding:10px 15px;
+    font-size:1.1em;
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: #aaa4a4;
+    background-color: var(--dark-color) !important;
+    border-color: var(--darkest-color);
 }
+
+    .btn-primary:hover {
+        color: var(--darkest-color);
+        background-color: var(--dark-color);
+        border-color: var(--darkest-color);
+        transition: 0.2s ease-out;
+    }
+
+.btn-warning {
+    color: #d5aa02;
+    background-color: var(--dark-color) !important;
+    border-color: var(--darkest-color);
+}
+
+    .btn-warning:hover {
+        color: var(--darkest-color);
+        background-color: var(--dark-color);
+        border-color: var(--darkest-color);
+        transition: 0.2s ease-out;
+    }
+
+.btn-info {
+    color: var(--secondary-color);
+    background-color: #d5aa02 !important;
+    border-color: var(--darkest-color);
+}
+
+    .btn-info:hover {
+        color: var(--dark-color);
+        border-color: var(--darkest-color);
+        transition: 0.2s ease-out;
+    }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: var(--secondary-color);
+    background-color: var(--dark-color);
+    border-color: var(--darkest-color);
 }
 
+.navbar {
+    background-color: var(--darker-color);
+}
+
+.navbar-brand {
+    color: #d5aa02;
+}
+
+.navbar-brand:hover {
+    color: var(--primary-color);
+}
+
+.pagination > .active > a {
+    background-color: #d5aa02 !important;
+    border: solid 1px #d5aa02 !important;
+}
+
+.pagination > li > a {
+    background-color: white;
+    color: var(--dark-color) !important;
+}
+
+/*Removing the glowing effect*/
+*:hover,
+*:focus,
+*:active {
+    outline: none;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+}
+
+.border-bottom, .border-top{
+    border-color: var(--dark-color) !important;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -37,11 +146,11 @@ html {
 }
 
 .border-top {
-    border-top: 1px solid #e5e5e5;
+    border-top: 1px solid var(--darkest-color);
 }
 
 .border-bottom {
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #000;
 }
 
 .box-shadow {
@@ -63,6 +172,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
+    background-color: var(--darker-color);
 }
 
 .footer {
@@ -129,15 +239,15 @@ form textarea {
     }
 
     .animated-icon1 span {
-        background: #6c757d;
+        background: var(--secondary-color);
     }
 
     .animated-icon2 span {
-        background: #6c757d;
+        background: var(--secondary-color);
     }
 
     .animated-icon3 span {
-        background: #6c757d;
+        background: var(--secondary-color);
     }
 
     .animated-icon1 span:nth-child(1) {
@@ -261,3 +371,31 @@ form textarea {
         top: 21px;
         left: 8px;
     }
+
+.hero {
+    height: 100vh;
+}
+
+.hero h1{
+    font-size:6em;
+}
+
+.slogan h1{
+    margin-top:10%;
+    margin-bottom:2.5%;
+    font-size:4em;
+    color: #000;
+}
+
+.slogan h1 img{
+    padding-bottom:50px;
+}
+
+.important-notes {
+    color: #d5aa02;
+}
+
+
+.not-visualized-tags {
+    color: #aaa4a4;
+}

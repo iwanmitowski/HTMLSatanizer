@@ -13,7 +13,8 @@
 </p>
 
 <form method="post" asp-action="SendToEmail" asp-route-id="@Model.Id" >
-    <input type="email" class="form-control col-3 mb-3" name="email" required />
+    <label for="email">Email</label>
+    <input type="email" class="form-control col-4 mb-3" name="email" required />
     <button class="btn btn-warning mb-3">Send To Email</button>
 </form>
 

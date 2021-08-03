@@ -5,8 +5,8 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">@(ViewData["Title"]+" Input")</h1>
-    <form method="post" asp-controller="HTML" asp-action="RawHTML">
+    <h1 class="display-4">@("Satanize " + ViewData["Title"] + " Input")</h1>
+    <form class="mb-3" method="post" asp-controller="HTML" asp-action="RawHTML">
         <div class="form-group">
             <label asp-for="HTML" class="col-form-label"></label>
             <textarea asp-for="HTML" id="text-area-input" class="form-control"></textarea>
@@ -19,8 +19,8 @@
         }
     </form>
     <div>
-        <h2 class="text-danger">Important notes: The following tags will be displayed as blank space</h2>
-        <p>@notVisualizedTags</p>
+        <h2 class="important-notes">Important notes: The following tags will be displayed as blank space</h2>
+        <p class="not-visualized-tags">@notVisualizedTags</p>
     </div>
     @{
         if (Context.Request.Method == "POST")
