@@ -9,10 +9,14 @@
     <form method="post" asp-controller="HTML" asp-action="RawHTML">
         <div class="form-group">
             <label asp-for="HTML" class="col-form-label"></label>
-            <textarea asp-for="HTML" id="text-area-input"  class="form-control"></textarea>
+            <textarea asp-for="HTML" id="text-area-input" class="form-control"></textarea>
             <span asp-validation-for="HTML" class="col-form-label text-danger"></span>
         </div>
         <input type="submit" class="btn btn-primary" />
+        @if (Context.Request.Method == "POST")
+        {
+            <a asp-controller="HTML" asp-action="All" class="btn btn-info ml-2">Check all entries</a>
+        }
     </form>
     <div>
         <h2 class="text-danger">Important notes: The following tags will be displayed as blank space</h2>

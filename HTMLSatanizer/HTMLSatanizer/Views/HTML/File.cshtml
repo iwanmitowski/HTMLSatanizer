@@ -12,7 +12,10 @@
             <label asp-for="File" for="formFile" class="col-form-label"></label>
             <input asp-for="File" id="formFile" class="mb-1" accept="text/*">
             <input type="submit" id="from-file-submit" class="btn btn-primary " />
-
+            @if (Context.Request.Method == "POST")
+            {
+                <a asp-controller="HTML" asp-action="All" class="btn btn-info ml-2">Check all entries</a>
+            }
         </div>
 
 

@@ -191,11 +191,8 @@ namespace HTMLSatanizer.Controllers
                 .Take(ItemsPerPage)
                 .ToList();
 
-
-
-
-
             List<HTMLSiteViewModel> sites = new List<HTMLSiteViewModel>();
+
             foreach (var element in query)
             {
                 sites.Add(
@@ -223,15 +220,16 @@ namespace HTMLSatanizer.Controllers
 
             return View(model);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> SendToEmail(int id)
         {
             var element = dataBaseServices.GetById(id);
+            var email = HttpContext.Request.Form["email"].ToString();
 
-            if (!ModelState.IsValid || element == null)
+            if (!ModelState.IsValid || email == string.Empty || element == null)
             {
-                return this.NotFound();
+                return this.Redirect("/Error/HttpError?statusCode=502");
             }
 
             string content = $"<h1>Satanized content: {element.URL}</h1>";
@@ -239,15 +237,15 @@ namespace HTMLSatanizer.Controllers
             StringBuilder html = new StringBuilder();
 
             html.AppendLine(content);
-            html.AppendLine($"<h3>: {element.CreatedOn}</h3>");
-            html.AppendLine(@$"<h3>: {(element.ModifiedOn == null ? "Never" : element.ModifiedOn)}</h3>");
+            html.AppendLine($"<h3>Created On: {element.CreatedOn}</h3>");
+            html.AppendLine(@$"<h3>Modified On: {(element.ModifiedOn == null ? "Never" : element.ModifiedOn)}</h3>");
             html.AppendLine();
             html.AppendLine(element.HTMLSatanized);
 
             await emailSender.SendEmailAsync(
-                "HTMLSatanizer@satanize.com",
+                "iwan.mitowski@gmail.com",
                 "HTMLSatanizer",
-                "menij35272@flipssl.com",
+                email,
                 content,
                 html.ToString());
 

@@ -11,9 +11,13 @@
             <label asp-for="URL" class="col-form-label"></label>
             <input type="text" asp-for="URL" class="form-control" />
             <span asp-validation-for="URL" class="col-form-label text-danger"></span>
-        
+
         </div>
         <input type="submit" class="btn btn-primary" />
+        @if (Context.Request.Method == "POST")
+        {
+               <a asp-controller="HTML" asp-action="All" class="btn btn-info ml-2">Check all entries</a>
+        }
     </form>
 
     @{

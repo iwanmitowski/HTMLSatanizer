@@ -9,5 +9,15 @@
     <h2>Im pretending to be an image</h2>
     //TODO: 404 Image
 }
-
-<h1>@Model</h1>
+else if (Model == 502)
+{
+    <h2>502 Bad Gateway</h2>
+}
+else
+{
+<h1 class="text-danger text-center">Error ocurred! Status code: @Model</h1>
+<h3 class="text-center">Feel free to return to the safe ground!</h3>
+<div class="text-center mt-3">
+    <a class="btn btn-info" asp-controller="Home" asp-action="Index">Safe ground!</a>
+</div>
+}

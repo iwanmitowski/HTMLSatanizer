@@ -11,10 +11,12 @@
         Detailed Information
     </button>
 </p>
-<form method="post" asp-action="SendToEmail" asp-route-id="@Model.Id">
-    <input type="email" />
-    <button class="btn btn-primary">SendToEmail</button>
+
+<form method="post" asp-action="SendToEmail" asp-route-id="@Model.Id" >
+    <input type="email" class="form-control col-3 mb-3" name="email" required />
+    <button class="btn btn-warning mb-3">Send To Email</button>
 </form>
+
 <div class="panel-collapse collapse show" id="satanizedHTML">
     <div class="card card-body">
         @Model.HTMLSatanized
