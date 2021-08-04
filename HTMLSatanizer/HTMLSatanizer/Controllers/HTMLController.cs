@@ -70,6 +70,8 @@ namespace HTMLSatanizer.Controllers
                         Type = "URL",
                     };
 
+                    site.RecentUpdate = site.CreatedOn;
+
                     await this.dataBaseServices.Add(site);
                 }
 
@@ -106,6 +108,8 @@ namespace HTMLSatanizer.Controllers
                 Type = "RawHTML",
             };
 
+            site.RecentUpdate = site.CreatedOn;
+
             await this.dataBaseServices.Add(site);
             await this.dbContext.SaveChangesAsync();
 
@@ -139,6 +143,8 @@ namespace HTMLSatanizer.Controllers
                     CreatedOn = DateTime.UtcNow,
                     Type = "File",
                 };
+
+                site.RecentUpdate = site.CreatedOn;
 
                 await this.dataBaseServices.Add(site);
                 await this.dbContext.SaveChangesAsync();
@@ -185,8 +191,7 @@ namespace HTMLSatanizer.Controllers
             }
 
             var query = all
-                .OrderByDescending(x => x.ModifiedOn)
-                .ThenByDescending(x => x.CreatedOn)
+                .OrderByDescending(x => x.RecentUpdate)
                 .Skip(skip)
                 .Take(ItemsPerPage)
                 .ToList();

@@ -33,6 +33,7 @@ namespace HTMLSatanizer.Services
             }
 
             site.ModifiedOn = DateTime.UtcNow;
+            site.RecentUpdate = (DateTime)site.ModifiedOn;
 
             this.dbContext.Update(site);
             entry.State = EntityState.Modified;

@@ -56,13 +56,13 @@ a {
 }
 
 .btn-primary {
-    color: #aaa4a4;
+    color: #c6bfbf;
     background-color: var(--dark-color) !important;
     border-color: var(--darkest-color);
 }
 
     .btn-primary:hover {
-        color: var(--darkest-color);
+        color: #280505;
         background-color: var(--dark-color);
         border-color: var(--darkest-color);
         transition: 0.2s ease-out;

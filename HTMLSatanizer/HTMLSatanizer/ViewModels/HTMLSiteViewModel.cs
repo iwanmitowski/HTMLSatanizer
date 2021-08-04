@@ -16,5 +16,7 @@ namespace HTMLSatanizer.ViewModels
         public string HTMLSatanized { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        public DateTime RecentUpdate => (DateTime)(CreatedOn < ModifiedOn ? ModifiedOn : CreatedOn);
+
     }
 }
