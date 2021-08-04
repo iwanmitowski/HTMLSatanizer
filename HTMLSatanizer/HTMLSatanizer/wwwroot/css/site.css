@@ -18,7 +18,7 @@ for details on configuring this project to bundle and minify static web assets. 
     /*var(--darkest-color) */
 }
 
-h1, h2, h3, h4{
+h1, h2, h3, h4 {
     color: #aaa4a4;
 }
 
@@ -50,23 +50,25 @@ a {
         transition: 0.2s ease-out;
     }
 
-.btn{
-    padding:10px 15px;
-    font-size:1.1em;
+input[type=search] {
+    border-color: var(--darkest-color);
 }
 
-.btn-primary {
+.btn-primary, .btn-outline-primary {
     color: #c6bfbf;
     background-color: var(--dark-color) !important;
     border-color: var(--darkest-color);
 }
 
-    .btn-primary:hover {
+    .btn-primary:hover, .btn-outline-primary:hover {
         color: #280505;
         background-color: var(--dark-color);
         border-color: var(--darkest-color);
         transition: 0.2s ease-out;
     }
+
+
+
 
 .btn-warning {
     color: #d5aa02;
@@ -107,9 +109,9 @@ a {
     color: #d5aa02;
 }
 
-.navbar-brand:hover {
-    color: var(--primary-color);
-}
+    .navbar-brand:hover {
+        color: var(--primary-color);
+    }
 
 .pagination > .active > a {
     background-color: #d5aa02 !important;
@@ -130,7 +132,7 @@ a {
     -webkit-appearance: none;
 }
 
-.border-bottom, .border-top{
+.border-bottom, .border-top {
     border-color: var(--dark-color) !important;
 }
 /* Sticky footer styles
@@ -376,20 +378,20 @@ form textarea {
     height: 100vh;
 }
 
-.hero h1{
-    font-size:6em;
-}
+    .hero h1 {
+        font-size: 6em;
+    }
 
-.slogan h1{
-    margin-top:10%;
-    margin-bottom:2.5%;
-    font-size:4em;
+.slogan h1 {
+    margin-top: 10%;
+    margin-bottom: 2.5%;
+    font-size: 4em;
     color: #000;
 }
 
-.slogan h1 img{
-    padding-bottom:50px;
-}
+    .slogan h1 img {
+        padding-bottom: 50px;
+    }
 
 .important-notes {
     color: #d5aa02;

@@ -176,21 +176,43 @@ namespace HTMLSatanizer.Controllers
             return View(model);
         }
 
-        public IActionResult All(int id/*, string search*/)
+        public IActionResult All(int id, string search)
         {
             //Setting up the elements
             id = Math.Max(1, id);
             var skip = (id - 1) * ItemsPerPage;
             var all = dataBaseServices.GetAll();
-            var sitesCount = all.Count();
-            var pagesCount = (int)Math.Ceiling(sitesCount / (decimal)ItemsPerPage);
+            var words = search?
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Trim())
+                .Select(x => x.ToLower())
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ToList();
 
-            if (id < 0 || id > pagesCount)
+            var query = new List<Site>();
+
+            if (words != null)
             {
-                return NotFound();
+                foreach (var word in words)
+                {
+                    query.AddRange(all.Where(x => x.URL.ToLower().Contains(word) || x.HTML.ToLower().Contains(word)));
+                }
+
+                if (query.Count == 0)
+                {
+                    query = all.ToList();
+                    search = null;
+                }
+            }
+            else
+            {
+                query = all.ToList();
             }
 
-            var query = all
+            var sitesCount = query.Count();
+            var pagesCount = (int)Math.Ceiling(sitesCount / (decimal)ItemsPerPage);
+
+            query = query
                 .OrderByDescending(x => x.RecentUpdate)
                 .Skip(skip)
                 .Take(ItemsPerPage)
@@ -214,13 +236,15 @@ namespace HTMLSatanizer.Controllers
                 );
             }
 
+
+
             var model = new HTMLSiteListViewModel()
             {
                 HTMLs = sites,
                 CurrentPage = id,
                 PagesCount = pagesCount,
                 SitesCount = sitesCount,
-                Search = null,
+                Search = search,
             };
 
             return View(model);
