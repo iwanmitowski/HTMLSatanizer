@@ -182,6 +182,7 @@ namespace HTMLSatanizer.Controllers
             id = Math.Max(1, id);
             var skip = (id - 1) * ItemsPerPage;
             var all = dataBaseServices.GetAll();
+
             var words = search?
                 .Split(' ', StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => x.Trim())
@@ -197,12 +198,6 @@ namespace HTMLSatanizer.Controllers
                 {
                     query.AddRange(all.Where(x => x.URL.ToLower().Contains(word) || x.HTML.ToLower().Contains(word)));
                 }
-
-                if (query.Count == 0)
-                {
-                    query = all.ToList();
-                    search = null;
-                }
             }
             else
             {
@@ -211,6 +206,11 @@ namespace HTMLSatanizer.Controllers
 
             var sitesCount = query.Count();
             var pagesCount = (int)Math.Ceiling(sitesCount / (decimal)ItemsPerPage);
+
+            if (id > pagesCount && search == null)
+            {
+                return NotFound();
+            }
 
             query = query
                 .OrderByDescending(x => x.RecentUpdate)
@@ -235,8 +235,6 @@ namespace HTMLSatanizer.Controllers
                     }
                 );
             }
-
-
 
             var model = new HTMLSiteListViewModel()
             {
@@ -266,10 +264,11 @@ namespace HTMLSatanizer.Controllers
             StringBuilder html = new StringBuilder();
 
             html.AppendLine(content);
+            html.AppendLine(element.HTMLSatanized);
             html.AppendLine($"<h3>Created On: {element.CreatedOn}</h3>");
             html.AppendLine(@$"<h3>Modified On: {(element.ModifiedOn == null ? "Never" : element.ModifiedOn)}</h3>");
             html.AppendLine();
-            html.AppendLine(element.HTMLSatanized);
+
 
             await emailSender.SendEmailAsync(
                 "htmlsatanizer@abv.bg",
