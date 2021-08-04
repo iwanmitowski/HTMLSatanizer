@@ -46,7 +46,7 @@ namespace HTMLSatanizer.Controllers
 
             if (!ModelState.IsValid || model.HTML == null)
             {
-                return this.Content("ГРЕШКА");
+                return this.Redirect("/Error/HttpError?statusCode=400");
             }
 
             if (!model.HTML.StartsWith("Error"))
@@ -94,7 +94,7 @@ namespace HTMLSatanizer.Controllers
 
             if (!ModelState.IsValid || model.HTML == null)
             {
-                return this.Content("ГРЕШКА");
+                return this.Redirect("/Error/HttpError?statusCode=400");
             }
 
             model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
@@ -128,7 +128,7 @@ namespace HTMLSatanizer.Controllers
 
             if (!ModelState.IsValid || model.HTML == null)
             {
-                return this.Content("ГРЕШКА");
+                return this.Redirect("/Error/HttpError?statusCode=400");
             }
 
             if (!model.HTML.StartsWith("Error"))
@@ -234,7 +234,7 @@ namespace HTMLSatanizer.Controllers
 
             if (!ModelState.IsValid || email == string.Empty || element == null)
             {
-                return this.Redirect("/Error/HttpError?statusCode=502");
+                return this.Redirect("/Error/HttpError?statusCode=400");
             }
 
             string content = $"<h1>Satanized content: {element.URL}</h1>";
