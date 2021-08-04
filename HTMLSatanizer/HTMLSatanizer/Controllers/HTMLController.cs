@@ -248,7 +248,7 @@ namespace HTMLSatanizer.Controllers
             html.AppendLine(element.HTMLSatanized);
 
             await emailSender.SendEmailAsync(
-                "iwan.mitowski@gmail.com",
+                "htmlsatanizer@abv.bg",
                 "HTMLSatanizer",
                 email,
                 content,
