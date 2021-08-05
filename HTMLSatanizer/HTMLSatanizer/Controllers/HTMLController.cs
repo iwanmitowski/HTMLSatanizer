@@ -57,7 +57,7 @@ namespace HTMLSatanizer.Controllers
 
                 if (site != null)
                 {
-                    this.dataBaseServices.Update(site);
+                    await this.dataBaseServices.Update(site);
                 }
                 else
                 {
@@ -74,8 +74,6 @@ namespace HTMLSatanizer.Controllers
 
                     await this.dataBaseServices.Add(site);
                 }
-
-                await this.dbContext.SaveChangesAsync();
             }
 
 
@@ -111,7 +109,6 @@ namespace HTMLSatanizer.Controllers
             site.RecentUpdate = site.CreatedOn;
 
             await this.dataBaseServices.Add(site);
-            await this.dbContext.SaveChangesAsync();
 
             return View(model);
         }
@@ -147,7 +144,6 @@ namespace HTMLSatanizer.Controllers
                 site.RecentUpdate = site.CreatedOn;
 
                 await this.dataBaseServices.Add(site);
-                await this.dbContext.SaveChangesAsync();
             }
 
             return View(model);

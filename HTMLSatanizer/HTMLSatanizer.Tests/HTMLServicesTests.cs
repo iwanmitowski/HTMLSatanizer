@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HTMLSatanizer.Tests
 {
-    public class Tests
+    public class HTMLServicesTests
     {
         int TextBytes = Encoding.UTF8.GetBytes("This is a dummy file").Length;
         private const string errorMessageHTTPS = "Error occured! Please try something different! Ensure that the site is using HTTPS!";

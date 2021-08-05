@@ -21,9 +21,11 @@ namespace HTMLSatanizer.Services
         public async Task Add(Site site)
         {
             await dbContext.AddAsync(site);
+
+            await dbContext.SaveChangesAsync();
         }
 
-        public void Update(Site site)
+        public async Task Update(Site site)
         {
             var entry = this.dbContext.Entry(site);
 
@@ -37,6 +39,8 @@ namespace HTMLSatanizer.Services
 
             this.dbContext.Update(site);
             entry.State = EntityState.Modified;
+
+            await dbContext.SaveChangesAsync();
         }
 
         public IQueryable<Site> GetAll()

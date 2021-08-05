@@ -6,7 +6,7 @@ namespace HTMLSatanizer.Services.Contracts
 {
     public interface IDataBaseServices
     {
-        void Update(Site site);
+        Task Update(Site site);
         Task Add(Site site);
         IQueryable<Site> GetAll();
         Site GetById(int Id);
