@@ -86,7 +86,7 @@ namespace HTMLSatanizer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RawHTMLAsync(RawHTMLInputModel model)
+        public async Task<IActionResult> RawHTML(RawHTMLInputModel model)
         {
             model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
 
