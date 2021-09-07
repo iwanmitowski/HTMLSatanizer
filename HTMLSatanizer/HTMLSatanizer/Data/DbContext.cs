@@ -14,6 +14,6 @@ namespace HTMLSatanizer.Data
         {
         }
 
-        DbSet<Site> Site { get; set; }
+        public DbSet<Site> Site { get; set; }
     }
 }

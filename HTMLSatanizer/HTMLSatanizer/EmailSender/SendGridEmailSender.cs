@@ -13,7 +13,7 @@ namespace HTMLSatanizer.EmailSender.Contracts
 
         public SendGridEmailSender(string apiKey)
         {
-            this.client = new SendGridClient(apiKey);
+            //this.client = new SendGridClient(apiKey);
         }
 
         public async Task SendEmailAsync(string from, string fromName, string to, string subject, string htmlContent, IEnumerable<EmailAttachment> attachments = null)
