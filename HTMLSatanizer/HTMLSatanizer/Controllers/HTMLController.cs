@@ -53,7 +53,7 @@ namespace HTMLSatanizer.Controllers
             {
                 model.SatanizedHTML = this.htmlServices.SatanizeHTML(model.HTML);
 
-                Site site = await this.dbContext.Set<Site>().FirstOrDefaultAsync<Site>(x => x.URL == model.URL);
+                Site site = await this.dbContext.Set<Site>().FirstOrDefaultAsync(x => x.URL == model.URL);
 
                 if (site != null)
                 {
@@ -69,13 +69,12 @@ namespace HTMLSatanizer.Controllers
                         CreatedOn = DateTime.UtcNow,
                         Type = "URL",
                     };
-
-                    site.RecentUpdate = site.CreatedOn;
-
-                    await this.dataBaseServices.Add(site);
                 }
-            }
 
+                site.RecentUpdate = site.CreatedOn;
+
+                await this.dataBaseServices.Add(site);
+            }
 
             return View(model);
         }
@@ -264,7 +263,6 @@ namespace HTMLSatanizer.Controllers
             html.AppendLine($"<h3>Created On: {element.CreatedOn}</h3>");
             html.AppendLine(@$"<h3>Modified On: {(element.ModifiedOn == null ? "Never" : element.ModifiedOn)}</h3>");
             html.AppendLine();
-
 
             await emailSender.SendEmailAsync(
                 "htmlsatanizer@abv.bg",

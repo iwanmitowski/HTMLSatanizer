@@ -11,7 +11,6 @@ namespace HTMLSatanizer.Tests.Controllers
     {
         WebApplicationFactory<Startup> webAppFactory;
         HttpClient client;
-        
 
         [SetUp]
         public void Setup()

@@ -13,6 +13,8 @@ namespace HTMLSatanizer.EmailSender.Contracts
 
         public SendGridEmailSender(string apiKey)
         {
+            //Uncomment and add SendGrid apiKey in appsettings.Production.json
+
             //this.client = new SendGridClient(apiKey);
         }
 
